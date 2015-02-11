@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+
+  # root 'products#index'
+  get '/' => 'pages#index'
+
   resources :reviews
 
   resources :products do

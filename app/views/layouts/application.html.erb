@@ -6,7 +6,20 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body>	
+<div class="nav">
+	<h1><a href="/">SearchFindAcquire</a></h1>
+	<br class="clear">
+</div>
+
+<%= form_tag products_path, :method => 'get' do %>
+<p class="searchbtn">
+	<%= text_field_tag :search, params[:search] %>
+	<%= submit_tag "Search", :name => nil %>
+</p>
+<% end %>
+
+<%= link_to "All Products", products_path %>
 
 <%= yield %>
 
