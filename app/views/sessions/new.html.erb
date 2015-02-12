@@ -1,0 +1,12 @@
+<h1>Log In</h1>
+
+<% if flash[:notice] %>
+	<p><%= flash[:notice] %></p>
+<% end %>
+
+<%= form_tag '/login' do %>
+	E-mail: <%= text_field_tag :email %>
+	Password: <%= text_field_tag :password %>
+	<%= submit_tag "Log In" %>
+
+<% end %>
