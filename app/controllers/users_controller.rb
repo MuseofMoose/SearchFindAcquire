@@ -13,6 +13,10 @@ class UsersController < ApplicationController
 		end
 	end
 
+	# def username
+	# 	:email[/[^@]+/]
+	# end
+
 	private
 
 	def user_params

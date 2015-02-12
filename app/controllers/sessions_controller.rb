@@ -19,6 +19,7 @@ class SessionsController < ApplicationController
 	def destroy
 		session[:user_id] = nil
 		redirect_to '/login'
+		flash[:notice] = "You have successfully logged out of the system. For security reasons, you should close and reopen your browser."
 	end
 
 end
