@@ -6,8 +6,6 @@ class ReviewsController < ApplicationController
   # GET /reviews.json
   def index
       @reviews = @product.reviews.all
-    # @reviews = Review.where(:product_id
-    # @reviews = Review.search(params[:product_id]);
   end
 
   # GET /reviews/1
