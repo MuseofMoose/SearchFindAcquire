@@ -3,7 +3,7 @@
     
 $(function(){
 	var clicks = 0;
-	$('.show-product').click(function(e){ //When the show button is clicked...
+	$('.show-product').hover(function(e){ //When the show button is hovered over...
 		e.preventDefault(); //prevent the default action.
 
 		if(clicks===0){ //Used to prevent generation of duplicate popups.
@@ -13,18 +13,15 @@ $(function(){
 			
 			var idNumber = $(this).closest(".product").attr("product");
 		    $.ajax({type: "GET", url:'/products/' + idNumber + '/reviews/', dataType: "JSON", success: function(data) {
-		    	var review_string = "<p class='reviewItem'>Reviews:";
+		    	var review_string = "<p class='reviewItem'>Reviews:<br>";
 
 		    	for(var key in data){
 		    		review_string+=data[key].comment;
-		    		review_string+="<br>";
+		    		review_string+="<br><br>";
 		    	}
 		    	review_string+="</p>";
 
 		    	$('div.popup').append(review_string);
-
-				console.log(data);
-				console.log(review_string);
 		    }});
 	  	};
 	});
@@ -42,7 +39,7 @@ $(function(){
 		e.preventDefault();
 
 		var new_item_div = "<form class='popup'>Name:<br><input type='text' id='product_name'><br>" +
-			"Description:<br><textarea id='product_description'></textarea><br>" +
+			"Description:<br><textarea id='product_description' rows='3' cols='22'></textarea><br>" +
 			"Price in cents:<br><input type='number' id='product_price_in_cents'><br>" +
 			"<input type='submit' value='Submit' class='submit-new'></form>";
 				
@@ -51,32 +48,41 @@ $(function(){
 		$('input.submit-new').click(function(e){
 			e.preventDefault();
 
+			//Stores all the values that have been entered into the form.
+			var v_name = $(this).siblings("#product_name").val();
+			console.log(v_name);
+			var v_description = $(this).siblings("#product_description").val();
+			console.log(v_description);
+
+			//Also converts the price in cents into a formatted dollar price.
+			var v_price_in_cents = $(this).siblings("#product_price_in_cents").val();
+			var v_price_in_dollars = (v_price_in_cents)/100;
+			var v_formatted_price = "$" + v_price_in_dollars.toString();
+
+
 			if(clicks===0){
 				$.ajax({
 					type: "POST",
 					url: "/products",
-					data: { product: { name: "Bicycle", description: "It has two fully working wheels, and nice little bell.", price_in_cents: "23949"}},
+					data: { product: { name: v_name, description: v_description, price_in_cents: v_price_in_cents}},
 					success: function(){
-						$.ajax({type: "GET", url:'/products/', dataType: "JSON", success: function(data){
-							var tablerow = data[data.length-1];
+						$.ajax({type: "GET", url:'/products/', dataType: "JSON", success: function(data){ //Reads in the product page index json...
+							var tablerow = data[data.length-1]; //selects the most recently added item...
+							var id = tablerow["id"]; //and stores it's id number
 
-							var id = tablerow["id"];
-							var name = tablerow["name"];
-							var description = tablerow["description"];
-							var price_in_cents = tablerow["price_in_cents"];
-
+							//Constructs an html element with all the info of the newly added product
 							var new_product_row = "<tr class='product' product='"+ id +
-								"'><td>" + name + "</td><td>" + description + "</td><td>" +
-								price_in_cents + "</td><td><a class='show-product' href='/products/" +
-								"6'>Show</a></td><td><a href='/products/" +
-								"6/edit'>Edit</a></td><td><a data-confirm='Are you sure?' rel='nofollow'" +
+								"'><td>" + v_name + "</td><td>" + v_description + "</td><td>" +
+								v_formatted_price + "</td><td><a class='show-product' href='/products/" +
+								id+"'>Show</a></td><td><a href='/products/" +
+								id+"/edit'>Edit</a></td><td><a data-confirm='Are you sure?' rel='nofollow'" +
 								" data-method='delete' href='/products/" +
-								"6'>Destroy</a></td></tr>";
+								id+"'>Destroy</a></td></tr>";
 
+							//And temporarily appends it so it looks like it was added in real-time.
 							$('tbody').append(new_product_row);
 
 						}});
-						// return false;
 					},
 					error: function(){
 						alert('There was an error. Please try again.');
