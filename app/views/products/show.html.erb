@@ -25,8 +25,11 @@
 	</p>
 <% end %>
 
-<h3>New Review</h3>
-<%= render 'reviews/form' %>
-
-<%= link_to 'Edit', edit_product_path(@product) %> |
+<% if current_user %>
+  <h3>New Review</h3>
+  <%= render 'reviews/form' %>
+  <%= link_to 'Edit', edit_product_path(@product) %> |
+<% else %>
+  <p>You must be logged in to edit an item or post a review.</p>
+<% end %>
 <%= link_to 'Back', products_path %>

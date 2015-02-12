@@ -1,6 +1,10 @@
 <h1>Editing Review</h1>
 
+<% if current_user %>
 <%= render 'form' %>
 
 <%= link_to 'Show', @review %> |
 <%= link_to 'Back', reviews_path %>
+<% else %>
+	<p>You must be logged in to edit an item or post a review.</p>
+<% end %>

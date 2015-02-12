@@ -15,10 +15,14 @@
     <% @reviews.each do |review| %>
       <tr>
         <td><%= review.comment %></td>
-        <td><%= review.product %></td>
+        <td><%= review.product.name %></td>
         <td><%= link_to 'Show', review %></td>
+        <% if current_user %>
         <td><%= link_to 'Edit', edit_review_path(review) %></td>
         <td><%= link_to 'Destroy', review, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% else %>
+          <p>You must be logged in to edit an item or post a review.</p>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +30,4 @@
 
 <br>
 
-<%= link_to 'New Review', new_review_path %>
+<%= link_to 'New Review', new_product_review_path %>

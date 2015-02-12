@@ -1,10 +1,13 @@
 class ReviewsController < ApplicationController
   before_action :set_review, only: [:show, :edit, :update, :destroy]
+  before_action :set_product, only: [:index, :create, :new]
 
   # GET /reviews
   # GET /reviews.json
   def index
-    @reviews = Review.all
+      @reviews = @product.reviews.all
+    # @reviews = Review.where(:product_id
+    # @reviews = Review.search(params[:product_id]);
   end
 
   # GET /reviews/1
@@ -65,6 +68,10 @@ class ReviewsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_review
       @review = Review.find(params[:id])
+    end
+
+    def set_product
+      @product = Product.find(params[:product_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
