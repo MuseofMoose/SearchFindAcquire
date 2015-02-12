@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 		end
 	end
 
-	# def username
+	# def set_username  MAKE USER NAME = FIRST PART OF E-MAIL, just for kicks
 	# 	:email[/[^@]+/]
 	# end
 

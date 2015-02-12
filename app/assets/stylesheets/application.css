@@ -33,6 +33,10 @@
 	color: #4CAF50;
 }
 
+.navbar {
+	padding: 5px;
+}
+
 .searchbtn {
 	text-align:center;
 }
