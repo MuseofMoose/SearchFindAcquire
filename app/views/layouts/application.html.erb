@@ -10,7 +10,7 @@
 	<div class="navbar">
 		<% if current_user %>
 			Signed in as <%= current_user.name %> | <%= link_to "Log Out", '/logout' %>
-			<div class="nav-cart"><%= link_to 'Cart', '/carts' %></div>
+			<div class="nav-cart"><img src="http://www.inmotionhosting.com/support/images/stories/icons/ecommerce/empty-cart-dark.png" style="width:20px;height:20px;margin-bottom:-5px;"><%= link_to 'Cart', '/carts' %></div>
 		<% else %>
 			<%= link_to 'Log In', '/login' %> | <%= link_to 'Sign Up', '/signup' %>
 		<% end %>
