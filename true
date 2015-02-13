@@ -1,0 +1,2 @@
+      invoke  active_record
+      remove    db/migrate/20150212165924_add_index_to_user.rb

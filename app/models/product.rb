@@ -1,8 +1,22 @@
+# == Schema Information
+#
+# Table name: products
+#
+#  id             :integer          not null, primary key
+#  name           :string
+#  description    :text
+#  price_in_cents :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#
+
 class Product < ActiveRecord::Base
 	validates :description, :name, presence: true
 	validates :price_in_cents, numericality: {only_integer: true, greater_than: 0}
 
 	has_many :reviews
+	has_many :cart_products
+	has_many :carts, through: :cart_products
 
 	def self.search(search)
 		if search
