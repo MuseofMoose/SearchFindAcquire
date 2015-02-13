@@ -6,8 +6,9 @@
 		<th width="20%">Name</th>
 		<th width="40%">Description</th>
 		<th width="10%">Price</th>
-		<th width="10%">Quantity</th>
-		<th width="20%">Remove</th>
+		<th width="10%">Category</th>
+		<!-- Item quantity goes here. -->
+		<th width="10%">Remove</th>
 	</tr>
 </thead>
 
@@ -18,6 +19,7 @@
 	<td><%= item.description %></td>
 	<td><%= item.formatted_price %>
 	<td><%= item.category %></td>
+	<!--Item quantity goes here. -->
 	<td><%= link_to 'Remove', item, method: :delete, data: { confirm: "Are you sure you want to delete this item?" } %></td>
 </tr>
 	<% end %>

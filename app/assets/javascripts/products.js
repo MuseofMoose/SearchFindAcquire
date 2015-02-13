@@ -3,11 +3,10 @@
     
 $(function(){
 	var clicks = 0;
-	$('.show-product').hover(function(e){ //When the show button is hovered over...
-		e.preventDefault(); //prevent the default action.
+	$('body').on('mouseenter','.show-product',function(e){ //When the show button is hovered over...
 
 		if(clicks===0){ //Used to prevent generation of duplicate popups.
-			var floating_div = "<div class='popup'></div>"; //Creates the housing div.
+			var floating_div = "<div class='popup-show'></div>"; //Creates the housing div.
 			$('body').append(floating_div); //adds it to the document body
 			clicks++;
 			
@@ -21,31 +20,39 @@ $(function(){
 		    	}
 		    	review_string+="</p>";
 
-		    	$('div.popup').append(review_string);
+		    	$('div.popup-show').append(review_string);
 		    }});
 	  	};
 	});
 
 	//Removes the show popup on mouseleave.
-	$('.show-product').mouseleave(function(e){
+	$('body').on('mouseleave','.show-product',function(e){
 		e.preventDefault();
 
-		$('div.popup').remove();	
+		$('div.popup-show').remove();	
 		clicks = 0; //Resets click so it can popup again when you re-mouseenter
 	});
 
 	//////////////////////////////////////////////////////////
 	//Defines the click event of the create new item button.//
 	//////////////////////////////////////////////////////////
-	$('.new-product').click(function(e){
+	$('body').on('click','.new-product',function(e){
 		e.preventDefault();
 
-		var new_item_div = "<form class='popup'>Name:<br><input type='text' id='product_name'><br>" +
-			"Description:<br><textarea id='product_description' rows='3' cols='22'></textarea><br>" +
-			"Price in cents:<br><input type='number' id='product_price_in_cents'><br>" +
-			"<input type='submit' value='Submit' class='submit-new'></form>";
+		var new_item_div = "<form class='popup-new'>Name:<br><input type='text' id='product_name'><br>" +
+			"Price in cents:<br><input type='number' id='product_price_in_cents'>" +
+			"<br>Category:<br><input type='text' id='product_category'><br>Description:<br>	" +
+			"<textarea id='product_description' rows='4' cols='22'></textarea><br>"+
+			"<input type='submit' value='Submit' class='submit-new'>"+
+			"<input type='submit' value='Close' class='close-new'></form>";
 				
 		$('body').append(new_item_div);
+
+		$('input.close-new').click(function(e){
+			e.preventDefault();
+			$(this).closest("form").remove();
+			clicks=0;
+		});
 
 		$('input.submit-new').click(function(e){
 			e.preventDefault();
@@ -53,6 +60,7 @@ $(function(){
 			//Stores all the values that have been entered into the form.
 			var v_name = $(this).siblings("#product_name").val();
 			var v_description = $(this).siblings("#product_description").val();
+			var v_category = $(this).siblings("#product_category").val();
 
 			//Also converts the price in cents into a formatted dollar price.
 			var v_price_in_cents = $(this).siblings("#product_price_in_cents").val();
@@ -61,10 +69,11 @@ $(function(){
 
 
 			if(clicks===0){
+				clicks++;
 				$.ajax({
 					type: "POST",
 					url: "/products",
-					data: { product: { name: v_name, description: v_description, price_in_cents: v_price_in_cents}},
+					data: { product: { name: v_name, description: v_description, price_in_cents: v_price_in_cents, category: v_category}},
 					success: function(){
 						$.ajax({type: "GET", url:'/products/', dataType: "JSON", success: function(data){ //Reads in the product page index json...
 							var tablerow = data[data.length-1]; //selects the most recently added item...
@@ -73,11 +82,12 @@ $(function(){
 							//Constructs an html element with all the info of the newly added product
 							var new_product_row = "<tr class='product' product='"+ id +
 								"'><td>" + v_name + "</td><td>" + v_description + "</td><td>" +
-								v_formatted_price + "</td><td><a class='show-product' href='/products/" +
-								id+"'>Show</a></td><td><a href='/products/" +
-								id+"/edit'>Edit</a></td><td><a data-confirm='Are you sure?' rel='nofollow'" +
+								v_formatted_price + "</td><td>" + v_category + "</td><td><a class='show-product' href='/products/" +
+								id+"'>Show </a><a rel='nofollow' data-method='post' href='/cart/add/" +
+								id+"'>Add To Cart </a><a href='/products/" +
+								id+"/edit'>Edit </a><a data-confirm='Are you sure?' rel='nofollow'" +
 								" data-method='delete' href='/products/" +
-								id+"'>Destroy</a></td></tr>";
+								id+"'>Delete</a></td></tr>";
 
 							//And temporarily appends it so it looks like it was added in real-time.
 							$('tbody').append(new_product_row);
@@ -91,7 +101,7 @@ $(function(){
 				});
 			};
 
-			$('form.popup').remove();
+			$('form.popup-new').remove();
 			clicks=0;
 		});
 	});
@@ -101,7 +111,7 @@ $(function(){
 	//Defines the click event of the edit button//
 	//////////////////////////////////////////////
 
-	$('.show-product').click(function(e){
+	$('.edit-product').click(function(e){
 		e.preventDefault();
 
 		var new_item_div = "<form class='popup'>Name:<br><input type='text' id='product_name'><br>" +
@@ -157,7 +167,7 @@ $(function(){
 				});
 			};
 
-			$('form.popup').remove();
+			$('form.popup-edit').remove();
 			clicks=0;
 		});
 	});
