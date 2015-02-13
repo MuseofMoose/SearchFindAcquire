@@ -51,7 +51,8 @@
 	margin-top: -16px;
 }
 
-div.nav-cart{
-	font-size: 16px;
-	margin-top: -18px;
+.productphoto {
+	text-align: right;
+	width: 200px;
+	height: 200px;
 }
