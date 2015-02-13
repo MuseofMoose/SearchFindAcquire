@@ -2,21 +2,47 @@
   Place all the styles related to the matching controller here.
   They will automatically be included in application.css.
 */
-.popup{
+.popup-new{
 	position: absolute;
-	left:65%;
-	top: 35%;
-	height: 400px;
-	width: 400px;
+	left:15%;
+	top: 68%;
+	height: 288px;
+	width: 250px;
 	border: 2px solid black;
 	background-color: FireBrick;
+	text-align: center;
+	font-weight: bold;
+	font-size: 18px;
 }
 
+.popup-show{
+	position: absolute;
+	left:15%;
+	top: 68%;
+	height: 288px;
+	width: 250px;
+	border: 2px solid black;
+	background-color: FireBrick;
+	text-align: center;
+	font-weight: bold;
+	font-size: 18px;
+}
 
 .reviewItem{
 	margin: 0px 0px 0px 0px;
 	font-size: 18px;
 	font-weight: bold;
+}
 
+
+.submit-new, .submit-edit{
+	margin-top: 0px;
 
 }
+
+
+input, textarea{
+	box-shadow: 3px 3px 3px black;
+	margin-bottom: 8px;
+}
+
