@@ -5,11 +5,11 @@
 .popup-new{
 	position: absolute;
 	left:15%;
-	top: 68%;
-	height: 288px;
+	top: 62%;
+	height: 320px;
 	width: 250px;
 	border: 2px solid black;
-	background-color: FireBrick;
+	background-color: #4CAF50;
 	text-align: center;
 	font-weight: bold;
 	font-size: 18px;
@@ -17,12 +17,25 @@
 
 .popup-show{
 	position: absolute;
-	left:15%;
-	top: 68%;
-	height: 288px;
+	left:58%;
+	top: 62%;
+	height: 320px;
 	width: 250px;
 	border: 2px solid black;
-	background-color: FireBrick;
+	background-color: #4CAF50;
+	text-align: center;
+	font-weight: bold;
+	font-size: 18px;
+}
+
+.popup-edit{
+	position: absolute;
+	left:77%;
+	top: 62%;
+	height: 320px;
+	width: 250px;
+	border: 2px solid black;
+	background-color: #4CAF50;
 	text-align: center;
 	font-weight: bold;
 	font-size: 18px;
@@ -37,6 +50,11 @@
 
 .submit-new, .submit-edit{
 	margin-top: 0px;
+
+}
+
+.formhead{
+	margin: 0px 0px 5px 0px;
 
 }
 
