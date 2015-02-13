@@ -10,10 +10,10 @@
 	<div class="navbar">
 		<% if current_user %>
 			Signed in as <%= current_user.name %> | <%= link_to "Log Out", '/logout' %>
+			<div class="nav-cart"><%= link_to 'Cart', '/carts' %></div>
 		<% else %>
 			<%= link_to 'Log In', '/login' %> | <%= link_to 'Sign Up', '/signup' %>
 		<% end %>
-		<div class="nav-cart"><%= link_to 'Cart', '/carts' %></div>
 	</div>
 
 <div class="nav">

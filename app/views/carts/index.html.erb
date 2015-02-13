@@ -18,7 +18,7 @@
 	<td><%= item.description %></td>
 	<td><%= item.formatted_price %>
 	<td><%= item.category %></td>
-	<td><%= link_to 'Delete', item, method: :delete, data: { confirm: "Are you sure you want to delete this item?" } %></td>
+	<td><%= link_to 'Remove', item, method: :delete, data: { confirm: "Are you sure you want to delete this item?" } %></td>
 </tr>
 	<% end %>
 </tbody>
