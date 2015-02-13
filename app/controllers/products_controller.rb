@@ -4,12 +4,7 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-<<<<<<< HEAD
-    @products = Product.all
-=======
-    # @products = Product.all
     @products = Product.search(params[:search])
->>>>>>> Added Add To Cart functionality.
   end
 
   # GET /products/1

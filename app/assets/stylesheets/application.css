@@ -45,3 +45,8 @@
 	text-align: left;
 	padding: 40px;
 	}
+
+.nav-cart {
+	text-align: right;
+	margin-top: -16px;
+}
