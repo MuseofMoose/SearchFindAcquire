@@ -1,10 +1,15 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :set_product, only: [:show, :edit, :update, :destroy, :add_to_cart]
 
   # GET /products
   # GET /products.json
   def index
+<<<<<<< HEAD
     @products = Product.all
+=======
+    # @products = Product.all
+    @products = Product.search(params[:search])
+>>>>>>> Added Add To Cart functionality.
   end
 
   # GET /products/1
@@ -56,10 +61,16 @@ class ProductsController < ApplicationController
   # DELETE /products/1.json
   def destroy
     @product.destroy
-    respond_to do |format|
+    respond_to do |format|  
       format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def add_to_cart
+    # debugger
+    cart_product = CartProduct.create(product: @product, quantity: 1, cart_id: current_user.cart.id)
+    redirect_to carts_path
   end
 
   private

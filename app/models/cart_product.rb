@@ -1,16 +1,15 @@
 # == Schema Information
 #
-# Table name: reviews
+# Table name: cart_products
 #
 #  id         :integer          not null, primary key
-#  comment    :text
 #  product_id :integer
+#  cart_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  user_id    :integer
 #
 
-class Review < ActiveRecord::Base
-  	belongs_to :product
-  	belongs_to :user
+class CartProduct < ActiveRecord::Base
+  belongs_to :product
+  belongs_to :cart
 end
