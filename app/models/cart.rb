@@ -15,10 +15,13 @@ class Cart < ActiveRecord::Base
   has_many :products, through: :cart_products
   before_create :set_total
 
+  def remove(item)
+  	CartProduct.where(cart: self, product: item).take
+  end
+
   private
 
   def set_total
   	total = 0
   end
-
 end

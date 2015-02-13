@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     post 'add/:id' => 'products#add_to_cart', as: :cart_add
   end
 
+  resources :cart_products, only: :destroy
+
   resources :reviews
 
   resources :carts
