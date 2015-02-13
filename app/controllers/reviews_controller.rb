@@ -1,6 +1,6 @@
 class ReviewsController < ApplicationController
   before_action :set_review, only: [:show, :edit, :update, :destroy]
-  before_action :set_product, only: [:index, :create, :new, :show]
+  before_action :set_product, only: [:index, :create, :new]
 
   # GET /reviews
   # GET /reviews.json
@@ -25,7 +25,7 @@ class ReviewsController < ApplicationController
   # POST /reviews
   # POST /reviews.json
   def create
-    @review = Review.new(review_params)
+    @review = @product.reviews.new(review_params)
 
     respond_to do |format|
       if @review.save

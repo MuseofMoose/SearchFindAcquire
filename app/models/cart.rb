@@ -19,6 +19,16 @@ class Cart < ActiveRecord::Base
   	CartProduct.where(cart: self, product: item).take
   end
 
+  def add_product(product)
+    if self.cart_products.map(&:product).include? product
+      matching_cart_product = cart_products.select { |cart_product| cart_product.product == product }
+      matching_cart_product.first.quantity += 1
+      matching_cart_product.first.save
+    else
+      self.cart_products.create(product: product, quantity: 1)
+    end
+  end
+
   private
 
   def set_total

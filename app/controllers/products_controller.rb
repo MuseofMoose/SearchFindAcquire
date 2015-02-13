@@ -63,8 +63,7 @@ class ProductsController < ApplicationController
   end
 
   def add_to_cart
-    # debugger
-    cart_product = CartProduct.create(product: @product, quantity: 1, cart_id: current_user.cart.id)
+    current_user.cart.add_product(@product)
     redirect_to carts_path
   end
 
