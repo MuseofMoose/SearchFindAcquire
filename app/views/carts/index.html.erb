@@ -1,0 +1,29 @@
+<br><br>
+
+<table class="all-products">
+<thead>
+	<tr>
+		<th width="15%">Name</th>
+		<th width="35%">Description</th>
+		<th width="10%">Price</th>
+		<th width="10%">Category</th>
+		<th width="10%">Quantity</th>
+		<th width="20%">Remove</th>
+		<th colspan="3"></th>
+	</tr>
+</thead>
+
+<tbody>
+	<% @cart.cart_products.each do |cart_product| %>
+<tr>
+	<td><%= cart_product.product.name %></td>
+	<td><%= cart_product.product.description %></td>
+	<td><%= cart_product.product.formatted_price %>
+	<td><%= cart_product.product.category %></td>
+	<td style="text-align: center;"><%= cart_product.quantity %></td>
+	<td><%= link_to 'Remove', @cart.remove(cart_product.product) , method: :delete, data: { confirm: "Are you sure you want to delete this item?" } %></td>
+</tr>
+	<% end %>
+</tbody>
+</table>
+

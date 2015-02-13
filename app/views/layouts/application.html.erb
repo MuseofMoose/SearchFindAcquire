@@ -7,12 +7,14 @@
   <%= csrf_meta_tags %>
 </head>
 <body>	
-	<!-- Will Display Username or Login/SignUp buttons depending on whether signed in or not -->
-	<% if current_user %>
-		Signed in as <%= current_user.name %> | <%= link_to "Log Out", '/logout' %>
-	<% else %>
-		<%= link_to 'Log In', '/login' %> | <%= link_to 'Sign Up', '/signup' %>
-	<% end %>
+	<div class="navbar">
+		<% if current_user %>
+			Signed in as <%= current_user.name %> | <%= link_to "Log Out", '/logout' %>
+			<div class="nav-cart"><img src="http://www.inmotionhosting.com/support/images/stories/icons/ecommerce/empty-cart-dark.png" style="width:20px;height:20px;margin-bottom:-5px;"><%= link_to 'Cart', '/carts' %></div>
+		<% else %>
+			<%= link_to 'Log In', '/login' %> | <%= link_to 'Sign Up', '/signup' %>
+		<% end %>
+	</div>
 
 <div class="nav">
 	<h1><a href="/">SearchFindAcquire</a></h1>

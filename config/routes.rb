@@ -10,7 +10,15 @@ Rails.application.routes.draw do
   get '/signup' => 'users#new'
   post '/users' => 'users#create'
 
-  resources :reviews, only: [:show, :update, :edit, :destroy]
+  scope :cart do
+    post 'add/:id' => 'products#add_to_cart', as: :cart_add
+  end
+
+  resources :cart_products, only: :destroy
+
+  resources :reviews, only: [:show, :edit, :update, :destroy]
+
+  resources :carts
 
   resources :products do
     resources :reviews, only: [:index, :new, :create]

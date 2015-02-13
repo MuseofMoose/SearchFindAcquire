@@ -6,8 +6,6 @@ class ReviewsController < ApplicationController
   # GET /reviews.json
   def index
       @reviews = @product.reviews.all
-    # @reviews = Review.where(:product_id
-    # @reviews = Review.search(params[:product_id]);
   end
 
   # GET /reviews/1
@@ -27,7 +25,7 @@ class ReviewsController < ApplicationController
   # POST /reviews
   # POST /reviews.json
   def create
-    @review = Review.new(review_params)
+    @review = @product.reviews.new(review_params)
 
     respond_to do |format|
       if @review.save
@@ -59,7 +57,7 @@ class ReviewsController < ApplicationController
   def destroy
     @review.destroy
     respond_to do |format|
-      format.html { redirect_to reviews_url, notice: 'Review was successfully destroyed.' }
+      format.html { redirect_to reviews_url, notice: 'Review was successfully deleted.' }
       format.json { head :no_content }
     end
   end

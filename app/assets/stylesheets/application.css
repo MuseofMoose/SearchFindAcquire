@@ -33,6 +33,10 @@
 	color: #4CAF50;
 }
 
+.navbar {
+	padding: 5px;
+}
+
 .searchbtn {
 	text-align:center;
 }
@@ -41,3 +45,13 @@
 	text-align: left;
 	padding: 40px;
 	}
+
+.nav-cart {
+	text-align: right;
+	margin-top: -16px;
+}
+
+div.nav-cart{
+	font-size: 16px;
+	margin-top: -18px;
+}
