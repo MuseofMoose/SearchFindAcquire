@@ -50,3 +50,9 @@
 	text-align: right;
 	margin-top: -16px;
 }
+
+.productphoto {
+	text-align: right;
+	width: 200px;
+	height: 200px;
+}
