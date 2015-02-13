@@ -1,6 +1,6 @@
 class ReviewsController < ApplicationController
   before_action :set_review, only: [:show, :edit, :update, :destroy]
-  before_action :set_product, only: [:index, :create, :new]
+  before_action :set_product, only: [:index, :create, :new, :show]
 
   # GET /reviews
   # GET /reviews.json
@@ -57,7 +57,7 @@ class ReviewsController < ApplicationController
   def destroy
     @review.destroy
     respond_to do |format|
-      format.html { redirect_to reviews_url, notice: 'Review was successfully destroyed.' }
+      format.html { redirect_to reviews_url, notice: 'Review was successfully deleted.' }
       format.json { head :no_content }
     end
   end
