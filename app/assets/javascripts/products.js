@@ -1,7 +1,9 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
-    
-$(function(){
+
+
+
+var ready = function(){
 	var clicks = 0;
 	$('body').on('mouseenter','.show-product',function(e){ //When the show button is hovered over...
 
@@ -186,4 +188,7 @@ $(function(){
 	// 		clicks=0;
 	// 	});
 	// });
-});
+};
+
+$(document).ready(ready);
+$(document).on('page:load', ready);
