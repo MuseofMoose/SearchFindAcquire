@@ -67,7 +67,7 @@ var ready = function(){
 			//Also converts the price in cents into a formatted dollar price.
 			var v_price_in_cents = $(this).siblings("#product_price_in_cents").val();
 			var v_price_in_dollars = (v_price_in_cents)/100;
-			var v_formatted_price = "$" + v_price_in_dollars.toString();
+			var v_formatted_price = "$" + v_price_in_dollars.toFixed(2);
 
 
 			if(clicks===0){
@@ -113,81 +113,81 @@ var ready = function(){
 	//Defines the click event of the edit button//
 	//////////////////////////////////////////////
 
-	// $('body').on('click','.edit-product',function(e){
-	// 	e.preventDefault();
+	$('body').on('click','.edit-product',function(e){
+		e.preventDefault();
 
-	// 	var id_pathway = $(this).siblings('.show-product').attr('href');
+		var id_pathway = $(this).siblings('.show-product').attr('href');
 
-	// 	console.log(id_pathway);
+		console.log(id_pathway);
 
-	// 	var edit_item_div = "<form class='popup-edit'><h3 class='formhead'>Edit Product</h3>Name:<br><input type='text' id='product_name'><br>" +
-	// 		"Price in cents:<br><input type='number' id='product_price_in_cents'>" +
-	// 		"<br>Category:<br><input type='text' id='product_category'><br>Description:<br>	" +
-	// 		"<textarea id='product_description' rows='4' cols='22'></textarea><br>"+
-	// 		"<input type='submit' value='Submit' class='submit-edit'>"+
-	// 		"<input type='submit' value='Close' class='close-edit'></form>";
+		var edit_item_div = "<form class='popup-edit'><h3 class='formhead'>Edit Product</h3>Name:<br><input type='text' id='product_name'><br>" +
+			"Price in cents:<br><input type='number' id='product_price_in_cents'>" +
+			"<br>Category:<br><input type='text' id='product_category'><br>Description:<br>	" +
+			"<textarea id='product_description' rows='4' cols='22'></textarea><br>"+
+			"<input type='submit' value='Submit' class='submit-edit'>"+
+			"<input type='submit' value='Close' class='close-edit'></form>";
 
-	// 	$('body').append(edit_item_div);
+		$('body').append(edit_item_div);
 
-	// 	$('input.close-edit').click(function(e){
-	// 		e.preventDefault();
-	// 		$(this).closest("form").remove();
-	// 		clicks=0;
-	// 	});
+		$('input.close-edit').click(function(e){
+			e.preventDefault();
+			$(this).closest("form").remove();
+			clicks=0;
+		});
 
-	// 	$('input.submit-edit').click(function(e){
-	// 		e.preventDefault();
+		$('input.submit-edit').click(function(e){
+			e.preventDefault();
 
-	// 		//Stores all the values that have been entered into the form.
-	// 		var new_name = $(this).siblings("#product_name").val();
-	// 		var new_description = $(this).siblings("#product_description").val();
-	// 		var new_category = $(this).siblings("#product_category").val();
+			//Stores all the values that have been entered into the form.
+			var new_name = $(this).siblings("#product_name").val();
+			var new_description = $(this).siblings("#product_description").val();
+			var new_category = $(this).siblings("#product_category").val();
 
-	// 		//Also converts the price in cents into a formatted dollar price.
-	// 		var new_price_in_cents = $(this).siblings("#product_price_in_cents").val();
-	// 		var new_price_in_dollars = (new_price_in_cents)/100;
-	// 		var new_formatted_price = "$" + new_price_in_dollars.toString();
+			//Also converts the price in cents into a formatted dollar price.
+			var new_price_in_cents = $(this).siblings("#product_price_in_cents").val();
+			var new_price_in_dollars = (new_price_in_cents)/100;
+			var new_formatted_price = "$" + new_price_in_dollars.toFixed(2);
 
-	// 		console.log(id_pathway);
-	// 		if(clicks===0){
-	// 			$.ajax({
-	// 				type: "PUT",
-	// 				url: id_pathway,
-	// 				dataType: 'json',
-	// 				contentType: 'application/json',	
-	// 				data: '{name: new_name, description: new_description, price_in_cents: new_price_in_cents, category: new_category}',	
-	// 				success: function(){
-	// 					$.ajax({type: "GET", url:'/products/', dataType: "JSON", success: function(data){ //Reads in the product page index json...
-	// 						var tablerow = data[data.length-1]; //selects the most recently added item...
-	// 						var id = tablerow["id"]; //and stores it's id number
+			console.log(id_pathway);
+			if(clicks===0){
+				$.ajax({
+					type: "PUT",
+					url: (id_pathway),
+ 					contentType: 'application/json',	
+					dataType: 'json',
+					data: JSON.stringify({name: new_name, description: new_description, price_in_cents: new_price_in_cents, category: new_category}),
+					success: function(){
+						$.ajax({type: "GET", url:'/products/', dataType: "JSON", success: function(data){ //Reads in the product page index json...
+							var tablerow = data[data.length-1]; //selects the most recently added item...
+							var id = tablerow["id"]; //and stores it's id number
 
-	// 						//Constructs an html element with all the info of the newly added product
-	// 						var new_product_row = "<tr class='product' product='"+ id +
-	// 							"'><td>" + new_name + "</td><td>" + new_description + "</td><td>" +
-	// 							new_formatted_price + "</td><td><a class='show-product' href='/products/" +
-	// 							id+"'>Show</a></td><td><a href='/products/" +
-	// 							id+"/edit'>Edit</a></td><td><a data-confirm='Are you sure?' rel='nofollow'" +
-	// 							" data-method='delete' href='/products/" +
-	// 							id+"'>Destroy</a></td></tr>";
+							//Constructs an html element with all the info of the newly added product
+							var edit_product_row = "<tr class='product' product='"+ id +
+								"'><td>" + new_name + "</td><td>" + new_description + "</td><td>" +
+								new_formatted_price + "</td><td>" + new_category + "</td><td><a class='show-product' href='/products/" +
+								id+"'>Show </a><a rel='nofollow' data-method='post' href='/cart/add/" +
+								id+"'>Add To Cart </a><a href='/products/" +
+								id+"/edit'>Edit </a><a data-confirm='Are you sure?' rel='nofollow'" +
+								" data-method='delete' href='/products/" +
+								id+"'>Delete</a></td></tr>";
 
-	// 						//And temporarily appends it so it looks like it was added in real-time.
-	// 						$('.edit-product').closest("tr").replaceWith(new_product_row);
 
-	// 					}});
-	// 				},
-	// 				error: function(request, error){
-	// 					alert('There was an error. Please try again.');
-	// 					console.log(arguments);
-	// 					console.log(error);
-	// 					//return false;
-	// 				}
-	// 			});
-	// 		};
+							//And temporarily appends it so it looks like it was added in real-time.
+							$('.edit-product').closest("tr[product = '" + id + "']").replaceWith(edit_product_row);
 
-	// 		$('form.popup-edit').remove();
-	// 		clicks=0;
-	// 	});
-	// });
+						}});
+					},
+					error: function(request, error){
+						alert('There was an error. Please try again.');
+						console.log(arguments);
+					}
+				});
+			};
+
+			$('form.popup-edit').remove();
+			clicks=0;
+		});
+	});
 };
 
 $(document).ready(ready);
