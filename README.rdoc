@@ -4,3 +4,5 @@ The result of my Wyncode practice group project.
 
 SearchFindAcquire is a marketplace prototype that allows you to add products, enter search terms to filter products,
 add products to a cart. It also uses Ajax functionality to do almost everything on a single page.
+
+There's a lot more that could be added and polished, but I'm unlikely to come back to this project.
